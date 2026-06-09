@@ -30,3 +30,10 @@ def extract_titles(html):
     titles = re.findall(pattern, html)
 
     return titles
+
+def extract_prices(html):
+    pattern = r"price:\s*formatPriceOrUnknown\('(\d+)'\)"
+
+    prices = re.findall(pattern, html)
+
+    return prices
