@@ -62,7 +62,7 @@ print(df.info())
 
 df.to_csv(
     "Data/mainz_listings.csv",
-    index=False
+    sep=";",
+    index=False,
+    encoding="utf-8-sig"
 )
-
-print("\nCSV file saved successfully!")
