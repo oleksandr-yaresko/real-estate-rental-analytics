@@ -59,3 +59,10 @@ print(df[["title", "market_category", "price"]].head(10))
 
 print("\nDataset Info:")
 print(df.info())
+
+df.to_csv(
+    "Data/mainz_listings.csv",
+    index=False
+)
+
+print("\nCSV file saved successfully!")
