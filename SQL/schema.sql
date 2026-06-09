@@ -24,4 +24,19 @@ CREATE TABLE listings (
 
     size_category VARCHAR(20),
     price_segment VARCHAR(20)
+    postal_code VARCHAR(10),
+
+    floor INTEGER,
+
+    apartment_type VARCHAR(50),
+
+    additional_costs NUMERIC(10,2), 
+
+    deposit NUMERIC(10,2),
+
+    available_from VARCHAR(50),
+
+    exchange_offer BOOLEAN
+
+
 );

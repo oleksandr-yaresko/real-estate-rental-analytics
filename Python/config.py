@@ -1,0 +1,5 @@
+DB_NAME = "real_estate_analytics"
+DB_USER = "postgres"
+DB_PASSWORD = "190882"
+DB_HOST = "localhost"
+DB_PORT = "5432"
