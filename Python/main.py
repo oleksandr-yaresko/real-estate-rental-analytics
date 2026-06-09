@@ -32,8 +32,30 @@ df = pd.DataFrame({
     "price": prices
 })
 
+df["price"] = df["price"].astype(int)
+
+
+def classify_listing(title):
+
+    title = title.upper()
+
+    if "TAUSCHWOHNUNG" in title:
+        return "Tauschwohnung"
+
+    if "WG" in title:
+        return "WG"
+
+    if "WBS" in title:
+        return "WBS"
+
+    return "Apartment"
+
+
+df["market_category"] = df["title"].apply(classify_listing)
+
+
 print("\nData Preview:")
-print(df.head())
+print(df[["title", "market_category", "price"]].head(10))
 
 print("\nDataset Info:")
 print(df.info())
