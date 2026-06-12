@@ -104,3 +104,22 @@ def extract_rooms(html):
                 return value.text.strip()
 
     return None
+
+from bs4 import BeautifulSoup
+
+def extract_urls(html):
+
+    soup = BeautifulSoup(html, "html.parser")
+
+    urls = []
+
+    ads = soup.find_all("article", class_="aditem")
+
+    for ad in ads:
+
+        url = ad.get("data-href")
+
+        if url:
+            urls.append(url)
+
+    return urls

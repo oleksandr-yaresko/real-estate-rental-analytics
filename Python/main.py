@@ -13,6 +13,7 @@ all_titles = []
 all_prices = []
 all_urls = []
 
+
 # Собираем первые 5 страниц
 for page in range(1, 6):
 
