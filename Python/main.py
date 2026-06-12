@@ -7,34 +7,51 @@ from extract import (
 
 import pandas as pd
 
-URL = "https://www.kleinanzeigen.de/s-wohnung-mieten/mainz/c203l5315"
+all_ids = []
+all_titles = []
+all_prices = []
 
-html = get_search_page(URL)
+# Собираем первые 5 страниц
+for page in range(1, 6):
 
-ids = extract_item_ids(html)
-titles = extract_titles(html)
-prices = extract_prices(html)
+    if page == 1:
+        url = "https://www.kleinanzeigen.de/s-wohnung-mieten/mainz/c203l5315"
+    else:
+        url = f"https://www.kleinanzeigen.de/s-wohnung-mieten/mainz/seite:{page}/c203l5315"
 
-print("IDs:", len(ids))
-print("Titles:", len(titles))
-print("Prices:", len(prices))
+    print(f"\nProcessing page {page}...")
 
-# Берем минимальную длину
-min_len = min(len(ids), len(titles), len(prices))
+    html = get_search_page(url)
 
-ids = ids[:min_len]
-titles = titles[:min_len]
-prices = prices[:min_len]
+    ids = extract_item_ids(html)
+    titles = extract_titles(html)
+    prices = extract_prices(html)
+
+    print(f"Found IDs: {len(ids)}")
+    print(f"Found Titles: {len(titles)}")
+    print(f"Found Prices: {len(prices)}")
+
+    min_len = min(len(ids), len(titles), len(prices))
+
+    all_ids.extend(ids[:min_len])
+    all_titles.extend(titles[:min_len])
+    all_prices.extend(prices[:min_len])
+
+print("\nCreating DataFrame...")
 
 df = pd.DataFrame({
-    "listing_id": ids,
-    "title": titles,
-    "price": prices
+    "listing_id": all_ids,
+    "title": all_titles,
+    "price": all_prices
 })
 
+# Удаляем дубликаты
+df = df.drop_duplicates(subset=["listing_id"])
+
+# Цена в число
 df["price"] = df["price"].astype(int)
 
-
+# Классификация
 def classify_listing(title):
 
     title = title.upper()
@@ -53,16 +70,17 @@ def classify_listing(title):
 
 df["market_category"] = df["title"].apply(classify_listing)
 
+print("\nFinal Dataset:")
+print(df.head())
 
-print("\nData Preview:")
-print(df[["title", "market_category", "price"]].head(10))
+print("\nTotal Unique Listings:", len(df))
 
-print("\nDataset Info:")
-print(df.info())
-
+# Сохраняем CSV
 df.to_csv(
     "Data/mainz_listings.csv",
     sep=";",
     index=False,
     encoding="utf-8-sig"
 )
+
+print("\nCSV saved successfully!")
