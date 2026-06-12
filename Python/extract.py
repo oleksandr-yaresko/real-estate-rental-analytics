@@ -49,7 +49,12 @@ def extract_size_m2(html):
 
     soup = BeautifulSoup(html, "html.parser")
 
-    details = soup.find_all(
+    details_box = soup.find("div", id="viewad-details")
+
+    if not details_box:
+        return None
+
+    details = details_box.find_all(
         "li",
         class_="addetailslist--detail"
     )
@@ -74,7 +79,12 @@ def extract_rooms(html):
 
     soup = BeautifulSoup(html, "html.parser")
 
-    details = soup.find_all(
+    details_box = soup.find("div", id="viewad-details")
+
+    if not details_box:
+        return None
+
+    details = details_box.find_all(
         "li",
         class_="addetailslist--detail"
     )
@@ -93,4 +103,4 @@ def extract_rooms(html):
             if value:
                 return value.text.strip()
 
-    return None    
+    return None
