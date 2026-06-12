@@ -67,3 +67,38 @@ Version 1 (MVP) In Progress
 | price_per_m2 | Rent per square meter |
 | size_category | Small, Medium, Large |
 | price_segment | Budget, Mid-Range, Premium |
+
+## Initial Market Insights (Mainz)
+
+Based on 124 rental listings collected from Kleinanzeigen:
+
+| Category | Listings | Median Price (€) |
+|-----------|-----------:|-----------:|
+| Apartment | 71 | 850 |
+| Tauschwohnung | 47 | 738 |
+| WG | 6 | 550 |
+
+### Key Findings
+
+- Apartments represent 57% of all listings.
+- The median apartment rent is €850.
+- Tauschwohnungen are approximately 13% cheaper than regular apartments.
+- WG rooms are the most affordable housing option with a median price of €550.
+
+## Rental Price Distribution (Mainz)
+
+Based on 124 rental listings:
+
+| Price Range | Listings |
+|------------|----------:|
+| Under €600 | 29 |
+| €600–799 | 36 |
+| €800–999 | 29 |
+| €1000–1199 | 11 |
+| €1200+ | 19 |
+
+### Key Findings
+
+- More than half of listings are priced between €600 and €999.
+- Only 15% of listings cost more than €1200.
+- Affordable housing under €600 still represents nearly one quarter of the market.

@@ -1,3 +1,4 @@
+from extract import extract_urls
 from extract import (
     get_search_page,
     extract_item_ids,
@@ -10,6 +11,7 @@ import pandas as pd
 all_ids = []
 all_titles = []
 all_prices = []
+all_urls = []
 
 # Собираем первые 5 страниц
 for page in range(1, 6):
@@ -23,16 +25,34 @@ for page in range(1, 6):
 
     html = get_search_page(url)
 
+    
+
+    if page == 1:
+        urls = extract_urls(html)
+
+        print("\nFirst 20 URLs:")
+        for u in urls[:20]:
+            print(u)
+
+        print("Total URLs found:", len(urls))
+
+    
     ids = extract_item_ids(html)
     titles = extract_titles(html)
     prices = extract_prices(html)
+    urls = extract_urls(html)
 
     print(f"Found IDs: {len(ids)}")
     print(f"Found Titles: {len(titles)}")
     print(f"Found Prices: {len(prices)}")
 
-    min_len = min(len(ids), len(titles), len(prices))
-
+    min_len = min(
+        len(ids),
+        len(titles),
+        len(prices),
+        len(urls)
+    )
+    all_urls.extend(urls[:min_len])
     all_ids.extend(ids[:min_len])
     all_titles.extend(titles[:min_len])
     all_prices.extend(prices[:min_len])
@@ -42,7 +62,8 @@ print("\nCreating DataFrame...")
 df = pd.DataFrame({
     "listing_id": all_ids,
     "title": all_titles,
-    "price": all_prices
+    "price": all_prices,
+    "url": all_urls
 })
 
 # Удаляем дубликаты
@@ -70,6 +91,7 @@ def classify_listing(title):
 
 df["market_category"] = df["title"].apply(classify_listing)
 
+print(df.columns)
 print("\nFinal Dataset:")
 print(df.head())
 
@@ -84,3 +106,12 @@ df.to_csv(
 )
 
 print("\nCSV saved successfully!")
+
+html = get_search_page(
+    "https://www.kleinanzeigen.de/s-wohnung-mieten/mainz/c203l5315"
+)
+
+with open("search_page.html", "w", encoding="utf-8") as f:
+    f.write(html)
+
+print("HTML file saved")

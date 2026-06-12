@@ -37,3 +37,60 @@ def extract_prices(html):
     prices = re.findall(pattern, html)
 
     return prices
+
+def extract_urls(html):
+    pattern = r'(/s-anzeige/[^"\']+)'
+    return re.findall(pattern, html)
+
+from bs4 import BeautifulSoup
+
+
+def extract_size_m2(html):
+
+    soup = BeautifulSoup(html, "html.parser")
+
+    details = soup.find_all(
+        "li",
+        class_="addetailslist--detail"
+    )
+
+    for detail in details:
+
+        text = detail.get_text(" ", strip=True)
+
+        if "Wohnfläche" in text:
+
+            value = detail.find(
+                "span",
+                class_="addetailslist--detail--value"
+            )
+
+            if value:
+                return value.text.strip()
+
+    return None
+
+def extract_rooms(html):
+
+    soup = BeautifulSoup(html, "html.parser")
+
+    details = soup.find_all(
+        "li",
+        class_="addetailslist--detail"
+    )
+
+    for detail in details:
+
+        text = detail.get_text(" ", strip=True)
+
+        if "Zimmer" in text:
+
+            value = detail.find(
+                "span",
+                class_="addetailslist--detail--value"
+            )
+
+            if value:
+                return value.text.strip()
+
+    return None    
