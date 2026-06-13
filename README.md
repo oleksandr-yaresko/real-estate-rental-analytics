@@ -102,3 +102,10 @@ Based on 124 rental listings:
 - More than half of listings are priced between €600 and €999.
 - Only 15% of listings cost more than €1200.
 - Affordable housing under €600 still represents nearly one quarter of the market.
+
+• Analyzed 124 rental listings from Mainz
+• Average rental price: €16.33 per m²
+• WG listings showed the highest average price per m² (€20.10)
+• 1-room apartments were the most expensive segment (€19.39 per m²)
+• Large apartments (4 rooms) had the lowest average price per m² (€12.81)
+• Identified listings ranging from €7.50 to €36.11 per m²
