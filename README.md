@@ -133,3 +133,13 @@ These records were excluded from price-per-square-meter calculations and deal sc
 107 enriched listings
 Deal scoring model
 Price-per-square-meter analysis
+
+Key Findings
+
+• Average rental price per m²: 16.33 €
+• WG listings have the highest average price per m² (20.10 €)
+• Apartment exchange listings (Tauschwohnung) are significantly cheaper than regular rentals
+• Small apartments (1 room) have the highest price per m²
+• Several listings were identified as potential market opportunities with discounts above 40%
+
+Removed obvious data-entry errors and non-market listings (e.g. €1 promotional listings).

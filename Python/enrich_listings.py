@@ -48,17 +48,66 @@ sample["size_m2"] = (
     .astype(float)
 )
 
+sample = sample[
+    sample["size_m2"] > 0
+]
+
 sample["rooms"] = (
     sample["rooms"]
     .str.replace(",", ".", regex=False)
     .astype(float)
 )
 
+search_keywords = [
+    "SUCHE",
+    "SUCHEN",
+    "GESUCH"
+]
+
+sample = sample[
+    ~sample["title"].str.upper().str.contains(
+        "|".join(search_keywords),
+        na=False
+    )
+]
+
 sample["price_per_m2"] = (
     sample["price"] / sample["size_m2"]
 ).round(2)
 
+print("\nMAX price_per_m2:")
+print(sample["price_per_m2"].max())
+
+print("\nRows with inf:")
+print(
+    sample[
+        sample["price_per_m2"] == float("inf")
+    ][
+        ["listing_id", "title", "price", "size_m2"]
+    ]
+)
+
+print("\nRows with size <= 0:")
+print(
+    sample[
+        sample["size_m2"] <= 0
+    ][
+        ["listing_id", "title", "price", "size_m2"]
+    ]
+)
+
+sample = sample.replace(
+    [float("inf"), float("-inf")],
+    pd.NA
+)
+
+sample = sample.dropna(
+    subset=["price_per_m2"]
+)
+
 market_avg = sample["price_per_m2"].mean()
+
+print("\nMarket average:", round(market_avg, 2))
 
 sample["deal_score"] = (
     market_avg - sample["price_per_m2"]

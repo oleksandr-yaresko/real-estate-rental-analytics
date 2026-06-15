@@ -15,7 +15,7 @@ all_urls = []
 
 
 # Собираем первые 5 страниц
-for page in range(1, 6):
+for page in range(1, 11):
 
     if page == 1:
         url = "https://www.kleinanzeigen.de/s-wohnung-mieten/mainz/c203l5315"
