@@ -25,16 +25,7 @@ for _, row in sample.iterrows():
         headers={"User-Agent": "Mozilla/5.0"}
     )
 
-    if row["listing_id"] == 3324712419:
-        with open(
-            "failed_page.html",
-            "w",
-            encoding="utf-8"
-        ) as f:
-            f.write(response.text)
-
-        print("Failed page saved")
-
+ 
     size = extract_size_m2(response.text)
     rooms = extract_rooms(response.text)
 
