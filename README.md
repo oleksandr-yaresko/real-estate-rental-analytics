@@ -121,3 +121,15 @@ Deal Score = Market Average Price per m² - Listing Price per m²
 Positive values indicate listings priced below the market average, while negative values indicate listings priced above market levels.
 
 This allows renters to quickly identify potentially attractive opportunities within the Mainz rental market.
+
+Data Quality Notes
+
+Out of 124 collected rental listings, 107 were successfully enriched with apartment size and room count information.
+
+Most missing values originate from "Tauschwohnung" (apartment exchange) listings, which often use a different page structure and do not expose standardized property details.
+
+These records were excluded from price-per-square-meter calculations and deal scoring analysis.
+
+107 enriched listings
+Deal scoring model
+Price-per-square-meter analysis
