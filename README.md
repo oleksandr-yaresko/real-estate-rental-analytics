@@ -109,3 +109,15 @@ Based on 124 rental listings:
 • 1-room apartments were the most expensive segment (€19.39 per m²)
 • Large apartments (4 rooms) had the lowest average price per m² (€12.81)
 • Identified listings ranging from €7.50 to €36.11 per m²
+
+Key Feature: Best Deal Detection
+
+The project identifies potentially undervalued rental properties by comparing each listing's price per square meter against the overall market average.
+
+A custom Deal Score is calculated for every property:
+
+Deal Score = Market Average Price per m² - Listing Price per m²
+
+Positive values indicate listings priced below the market average, while negative values indicate listings priced above market levels.
+
+This allows renters to quickly identify potentially attractive opportunities within the Mainz rental market.
