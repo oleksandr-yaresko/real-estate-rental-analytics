@@ -5,6 +5,12 @@ This project analyzes the rental housing market in Mainz, Germany using data col
 
 The platform automatically scrapes rental listings, enriches property data, calculates market metrics, identifies potentially undervalued apartments, and visualizes insights through an interactive Power BI dashboard.
 
+## Projektzusammenfassung (Deutsch)
+
+Entwicklung einer End-to-End Data Analytics Lösung zur Analyse des Mietwohnungsmarktes in Mainz.
+
+Der Workflow umfasst Web Scraping mit Python, Datenbereinigung, Feature Engineering, PostgreSQL, SQL-Analysen sowie die Erstellung eines interaktiven Power BI Dashboards zur Identifikation attraktiver Mietangebote.
+
 Business Problem
 
 Finding affordable rental apartments in Germany is difficult because rental prices vary significantly by property type, apartment size, and location.
