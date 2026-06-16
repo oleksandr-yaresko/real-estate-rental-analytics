@@ -45,7 +45,7 @@ Power BI Dashboard
 
 ## Dashboard Preview
 
-![Dashboard](images/dashboard.png)
+![Dashboard](Images/dashboard.png)
 
 Dataset Summary
 Final Dataset
