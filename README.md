@@ -1,145 +1,161 @@
-# AI-Powered Real Estate Analytics Platform
+AI-Powered Real Estate Analytics Platform
+Overview
 
-## Business Problem
+This project analyzes the rental housing market in Mainz, Germany using data collected from Kleinanzeigen.
 
-Finding affordable rental apartments in Germany is difficult because prices vary significantly across cities and districts.
+The platform automatically scrapes rental listings, enriches property data, calculates market metrics, identifies potentially undervalued apartments, and visualizes insights through an interactive Power BI dashboard.
 
-This project analyzes rental listings from German real estate platforms and identifies below-market rental opportunities.
+Business Problem
 
----
+Finding affordable rental apartments in Germany is difficult because rental prices vary significantly by property type, apartment size, and location.
 
-## Project Goals
+The goal of this project is to transform raw rental listings into actionable market insights and help identify listings priced below the market average.
 
-- Collect rental listings
-- Store data in PostgreSQL
-- Analyze rental market trends
-- Calculate €/m² metrics
-- Identify undervalued listings
-- Visualize insights in Power BI
-
----
-
-## Tech Stack
-
-- Python
-- PostgreSQL
-- SQL
-- Power BI
-- GitHub
-
----
-
-## Architecture
+Project Goals
+Collect rental listings from Kleinanzeigen
+Enrich listings with apartment size and room count
+Store data in PostgreSQL
+Perform SQL-based market analysis
+Calculate rent per square meter
+Detect potentially undervalued listings
+Build an interactive Power BI dashboard
+Tech Stack
+Python
+Pandas
+BeautifulSoup
+Requests
+PostgreSQL
+SQL
+Power BI
+Git
+GitHub
+Architecture
 
 Kleinanzeigen
-    ↓
-Python ETL
-    ↓
-PostgreSQL
-    ↓
+↓
+Python Scraping Pipeline
+↓
+Data Cleaning & Feature Engineering
+↓
+PostgreSQL Database
+↓
 SQL Analytics Layer
-    ↓
+↓
 Power BI Dashboard
 
----
+## Dashboard Preview
 
-## Project Status
+![Dashboard](images/dashboard.png)
 
-Version 1 (MVP) In Progress
-## Data Dictionary
+Dataset Summary
+Final Dataset
+248 rental listings collected
+220 listings successfully enriched and analyzed
+Invalid listings and obvious data-entry errors removed
+Missing values handled during cleaning
+Feature Engineering
 
-| Column | Description |
-|----------|-------------|
-| listing_id | Unique listing identifier |
-| source | Data source |
-| title | Listing title |
-| url | Listing URL |
-| price | Monthly rent in EUR |
-| size_m2 | Apartment size in square meters |
-| rooms | Number of rooms |
-| city | City name |
-| district | District name |
-| listing_type | Apartment, WG, WBS, Tauschwohnung |
-| is_wbs | WBS required |
-| is_furnished | Furnished apartment |
-| published_date | Listing publication date |
-| scraped_at | Data collection timestamp |
-| price_per_m2 | Rent per square meter |
-| size_category | Small, Medium, Large |
-| price_segment | Budget, Mid-Range, Premium |
+The following analytical features were created:
 
-## Initial Market Insights (Mainz)
+price_per_m2
+deal_score
+discount_percent
+## Market Insights (Mainz)
 
-Based on 124 rental listings collected from Kleinanzeigen:
+### Overall Market
 
-| Category | Listings | Median Price (€) |
-|-----------|-----------:|-----------:|
-| Apartment | 71 | 850 |
-| Tauschwohnung | 47 | 738 |
-| WG | 6 | 550 |
+| Metric                 |    Value |
+| ---------------------- | -------: |
+| Listings Analyzed      |      220 |
+| Average Monthly Rent   |  €917.41 |
+| Average Apartment Size | 57.18 m² |
+| Average Rent per m²    |   €17.17 |
 
-### Key Findings
+### Rental Categories
 
-- Apartments represent 57% of all listings.
-- The median apartment rent is €850.
-- Tauschwohnungen are approximately 13% cheaper than regular apartments.
-- WG rooms are the most affordable housing option with a median price of €550.
+| Category      | Listings | Average Rent per m² (€) |
+| ------------- | -------: | ----------------------: |
+| Apartment     |      132 |                   18.52 |
+| WG            |        9 |                   18.39 |
+| Tauschwohnung |       75 |                   14.65 |
 
-## Rental Price Distribution (Mainz)
+### Room Analysis
 
-Based on 124 rental listings:
-
-| Price Range | Listings |
-|------------|----------:|
-| Under €600 | 29 |
-| €600–799 | 36 |
-| €800–999 | 29 |
-| €1000–1199 | 11 |
-| €1200+ | 19 |
+| Rooms | Average Rent per m² (€) |
+| ----- | ----------------------: |
+| 1     |                    22.0 |
+| 1.5   |                    18.5 |
+| 2     |                    16.8 |
+| 2.5   |                    13.9 |
+| 3     |                    14.5 |
+| 4     |                    14.8 |
+| 5     |                    16.2 |
 
 ### Key Findings
 
-- More than half of listings are priced between €600 and €999.
-- Only 15% of listings cost more than €1200.
-- Affordable housing under €600 still represents nearly one quarter of the market.
+* 220 rental listings were successfully enriched and analyzed.
+* Apartments represent the largest market segment with 132 listings.
+* Small apartments command the highest rent per square meter.
+* WG listings have a similar rent per square meter to standard apartments despite lower total monthly costs.
+* Tauschwohnung listings are approximately 21% cheaper per square meter than standard apartment rentals.
+* Multiple listings were identified as potential below-market opportunities using a custom deal scoring model.
 
-• Analyzed 124 rental listings from Mainz
-• Average rental price: €16.33 per m²
-• WG listings showed the highest average price per m² (€20.10)
-• 1-room apartments were the most expensive segment (€19.39 per m²)
-• Large apartments (4 rooms) had the lowest average price per m² (€12.81)
-• Identified listings ranging from €7.50 to €36.11 per m²
 
-Key Feature: Best Deal Detection
+The platform identifies potentially undervalued rental listings using a custom scoring model.
 
-The project identifies potentially undervalued rental properties by comparing each listing's price per square meter against the overall market average.
+Deal Score
+Deal Score =
+Market Average Rent per m²
+-
+Listing Rent per m²
+Interpretation
+Positive score → below-market listing
+Negative score → above-market listing
+Higher score → potentially better deal
+Discount Percentage
+Discount % =
+(Market Average - Listing Price per m²)
+/
+Market Average × 100
 
-A custom Deal Score is calculated for every property:
+This allows quick identification of attractive rental opportunities.
 
-Deal Score = Market Average Price per m² - Listing Price per m²
+Dashboard Features
 
-Positive values indicate listings priced below the market average, while negative values indicate listings priced above market levels.
+The Power BI dashboard includes:
 
-This allows renters to quickly identify potentially attractive opportunities within the Mainz rental market.
-
+Average Rent per m² KPI
+Average Monthly Rent KPI
+Average Apartment Size KPI
+Rent per m² by Number of Rooms
+Rent per m² by Listing Category
+Top 10 Best Rental Deals
+Interactive filters for:
+Number of Rooms
+Listing Category
 Data Quality Notes
 
-Out of 124 collected rental listings, 107 were successfully enriched with apartment size and room count information.
+The project automatically removes:
 
-Most missing values originate from "Tauschwohnung" (apartment exchange) listings, which often use a different page structure and do not expose standardized property details.
+Listings with missing apartment size
+Listings with invalid room counts
+Listings with zero apartment size
+Promotional and obvious data-entry errors
+Non-market outlier records
 
-These records were excluded from price-per-square-meter calculations and deal scoring analysis.
+This ensures more reliable market analysis and deal detection.
 
-107 enriched listings
-Deal scoring model
-Price-per-square-meter analysis
+Future Improvements
+District-level rental analysis
+Time-series market tracking
+Automated data refresh pipeline
+Rental price prediction model
+Interactive web dashboard
+Dashboard Preview
 
-Key Findings
+(Add Power BI dashboard screenshot here)
 
-• Average rental price per m²: 16.33 €
-• WG listings have the highest average price per m² (20.10 €)
-• Apartment exchange listings (Tauschwohnung) are significantly cheaper than regular rentals
-• Small apartments (1 room) have the highest price per m²
-• Several listings were identified as potential market opportunities with discounts above 40%
+images/dashboard.png
+Project Status
 
-Removed obvious data-entry errors and non-market listings (e.g. €1 promotional listings).
+Version 1 (MVP) In Progress
